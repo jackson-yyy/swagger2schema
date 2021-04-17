@@ -1,5 +1,5 @@
 {
-    "name": "@oops/swagger2schema",
+    "name": "@oops-pkg/swagger2schema",
     "version": "0.0.3",
     "description": "transform swagger to schema",
     "main": "dist/index.umd.js",
