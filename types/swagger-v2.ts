@@ -10,7 +10,7 @@ export interface SwaggerOperation {
   summary: string
   description: string
   operationId: string
-  parameters: SwaggerParameter[]
+  parameters: (SwaggerParameter | SwaggerReference)[]
   response: Record<string|number, SwaggerResponse>
 }
 
@@ -33,10 +33,14 @@ export interface SwaggerPath {
 
 export interface SwaggerResponse {
   description: string
-  schema: Schema
+  schema: Schema | SwaggerReference
 }
 
 export interface SwaggerDefinition extends Schema{
 
+}
+
+export interface SwaggerReference {
+  schema: Schema
 }
 

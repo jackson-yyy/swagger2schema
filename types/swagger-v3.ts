@@ -1,8 +1,19 @@
-import { Schema } from "./schema";
+import { Schema } from "./schema"
 
 export interface Swagger {
   paths: Record<string, SwaggerPath>
   components: SwaggerComponents
+}
+
+export interface SwaggerPath {
+  description?: string
+  summary?: string
+  get?: SwaggerOperation
+  post?: SwaggerOperation
+  put?: SwaggerOperation
+  patch?: SwaggerOperation
+  delete?: SwaggerOperation
+  // parameters?: SwaggerParameter[] | []
 }
 
 export interface SwaggerOperation {
@@ -10,8 +21,8 @@ export interface SwaggerOperation {
   summary: string
   description: string
   operationId: string
-  parameters: SwaggerParameter[]
-  requestBody: SwaggerRequestBody
+  parameters: (SwaggerParameter | SwaggerReference)[]
+  requestBody: SwaggerRequestBody | SwaggerReference
   response: Record<string|number, SwaggerResponse>
 }
 
@@ -19,7 +30,7 @@ export interface SwaggerRequestBody {
   description: string
   required: boolean
   content: Record<string, {
-    schema: Schema
+    schema: Schema | SwaggerReference
   }>
 }
 
@@ -28,22 +39,13 @@ export interface SwaggerParameter extends Partial<Schema> {
   in: 'query' | 'path' | 'header' | 'cookie'
   description: string
   required: boolean
-  schema?: Schema
-}
-
-export interface SwaggerPath {
-  get?: SwaggerOperation;
-  post?: SwaggerOperation;
-  put?: SwaggerOperation;
-  patch?: SwaggerOperation;
-  delete?: SwaggerOperation;
-  // parameters?: SwaggerParameter[] | [];
+  schema?: Schema | SwaggerReference
 }
 
 export interface SwaggerResponse {
   description: string
   content: Record<string, {
-    schema: Schema
+    schema: Schema | SwaggerReference
   }>
 }
 
@@ -53,3 +55,7 @@ export interface SwaggerComponents{
   responses: Record<string, SwaggerResponse>
 }
 
+
+export interface SwaggerReference {
+  schema: Schema
+}
