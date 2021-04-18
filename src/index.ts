@@ -1,2 +1,2 @@
-export * from './transfer-v2'
-export * from './transfer-v3'
+export * from './swagger2-generator'
+export * from './swagger3-generator'
