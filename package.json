@@ -1,13 +1,13 @@
 {
-    "name": "@oops-pkg/swagger2schema",
-    "version": "0.0.3",
+    "name": "swagger2schema",
+    "version": "0.0.5",
     "description": "transform swagger to schema",
     "main": "dist/index.umd.js",
     "module": "dist/index.es.js",
     "scripts": {
         "test": "jest",
         "build": "rm -rf dist/* && rollup -c",
-        "publish": "yarn build && ts-node ./script/publish"
+        "publish": "yarn build && ts-node ./scripts/publish"
     },
     "repository": {
         "type": "git",
