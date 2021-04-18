@@ -30,12 +30,14 @@ namespace Swagger3 {
   export interface SwaggerRequestBody {
     description: string
     required: boolean
-    content: Record<string, {
-      schema: Schema
-    }>
+    content: Record<string, SwaggerRequestBodyContent>
   }
 
-  export interface SwaggerParameter extends Partial<Schema> {
+  export interface SwaggerRequestBodyContent {
+    schema?: Schema
+  }
+
+  export interface SwaggerParameter extends Partial<Omit<Schema, 'required'>> {
     name: string
     in: 'query' | 'path' | 'header' | 'cookie'
     description: string
@@ -45,15 +47,17 @@ namespace Swagger3 {
 
   export interface SwaggerResponse {
     description: string
-    content: Record<string, {
-      schema: Schema
-    }>
+    content: Record<string, SwaggerResponseContent>
+  }
+
+  export interface SwaggerResponseContent {
+    schema?: Schema
   }
 
   export interface SwaggerComponents {
-    schemas: Record<string, Schema>
-    parameters: Record<string, SwaggerParameter>
-    responses: Record<string, SwaggerResponse>
+    schemas?: Record<string, Schema>
+    parameters?: Record<string, Schema>
+    responses?: Record<string, Schema>
   }
 
 }

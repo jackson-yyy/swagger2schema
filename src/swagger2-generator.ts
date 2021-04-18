@@ -14,8 +14,8 @@ export class Swagger2Generator extends CommonGenerator{
   constructor (swagger: Swagger2.Swagger) {
     super()
     this.swagger = swagger
-    this.paths = swagger.paths
-    this.definitions = swagger.definitions
+    this.paths = swagger.paths || {}
+    this.definitions = swagger.definitions || {}
   }
 
   getDefinition (ref: string) {
@@ -62,8 +62,8 @@ export class Swagger2Generator extends CommonGenerator{
 
   }
 
-  responseTransfer (successResponse: Swagger2.SwaggerResponse): SchemaWithoutReference {
-    return this.schemaTransfer(successResponse.schema)
+  responseTransfer (successResponse: Swagger2.SwaggerResponse): SchemaWithoutReference | undefined {
+    return successResponse.schema ? this.schemaTransfer(successResponse.schema) : undefined
   }
 
   generate () {

@@ -3,8 +3,8 @@ import { Schema } from "./schema";
 
 namespace Swagger2 {
   export interface Swagger {
-    paths: Record<string, SwaggerPath>
-    definitions: Record<string, SwaggerDefinition>
+    paths?: Record<string, SwaggerPath>
+    definitions?: Record<string, SwaggerDefinition>
   }
 
    export interface SwaggerPath {
@@ -35,7 +35,7 @@ namespace Swagger2 {
 
   export interface SwaggerResponse {
     description: string
-    schema: Schema
+    schema?: Schema
   }
 
   export interface SwaggerDefinition extends Schema {
