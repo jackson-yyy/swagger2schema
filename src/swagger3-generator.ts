@@ -33,13 +33,10 @@ export class Swagger3Generator extends CommonGenerator{
         properties: {},
         required: []
       }
-      params.filter(param => param.in === 'query').forEach(param => {
+      params.filter(param => param.in === 'query' && param.schema).forEach(param => {
         querySchema.properties[param.name] = {
-          type: param.type,
-          description: param.description,
-          items: param.items,
-          enum: param.enum,
-          $ref: param.$ref
+          ...param.schema!,
+          description: param.description
         }
         param.required && querySchema.required.push(param.name)
       })
@@ -55,7 +52,7 @@ export class Swagger3Generator extends CommonGenerator{
     return successResponse.schema ? this.schemaTransfer(successResponse.schema): undefined
   }
 
-  generate () {
+  generate (): GenerateResult[] {
     let res: GenerateResult[] = []
 
     Object.entries(this.paths)
@@ -64,7 +61,7 @@ export class Swagger3Generator extends CommonGenerator{
         this.requestMethods.filter(method => pathInfo[method])
           .forEach(method => {
             let pathOperation = pathInfo[method]!
-            let successResponse = pathOperation.response?.['200']?.content['application/json']
+            let successResponse = pathOperation.responses?.['200']?.content['application/json']
 
             let requestSchema: Schema | undefined = undefined
 
@@ -86,6 +83,6 @@ export class Swagger3Generator extends CommonGenerator{
             })
         })
       })
-    return []
+    return res
   }
 }
