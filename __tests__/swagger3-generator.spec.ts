@@ -1,11 +1,12 @@
-import { Swagger2Generator } from '../src/index';
-import { getSwagger } from './data/swagger2';
+import { Swagger3Generator } from '../src/index';
+import { getSwagger } from './data/swagger3';
 
 
-describe('swagger2-generator', () => {
+describe('swagger3-generator', () => {
 
-  let generator = new Swagger2Generator(getSwagger())
+  let generator = new Swagger3Generator(getSwagger())
   let result = generator.generate()
+
 
   test('different request method', () => {
 

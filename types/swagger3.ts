@@ -24,7 +24,7 @@ namespace Swagger3 {
     operationId?: string
     parameters?: SwaggerParameter[]
     requestBody?: SwaggerRequestBody
-    response?: Record<string | number, SwaggerResponse>
+    responses?: Record<string | number, SwaggerResponse>
   }
 
   export interface SwaggerRequestBody {
@@ -37,7 +37,7 @@ namespace Swagger3 {
     schema?: Schema
   }
 
-  export interface SwaggerParameter extends Partial<Omit<Schema, 'required'>> {
+  export interface SwaggerParameter {
     name: string
     in: 'query' | 'path' | 'header' | 'cookie'
     description: string
