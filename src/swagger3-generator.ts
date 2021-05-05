@@ -69,7 +69,7 @@ export class Swagger3Generator extends CommonGenerator{
               requestSchema = this.parametersTransfer(pathOperation.parameters)
             }
 
-            if (pathOperation.requestBody && method === 'post') {
+            if (pathOperation.requestBody && ['post', 'put'].includes(method)) {
               requestSchema = this.requestBodyTransfer(pathOperation.requestBody)
             }
 

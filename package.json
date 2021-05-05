@@ -5,7 +5,7 @@
     "main": "dist/src/index.js",
     "typings": "dist/src/index.d.ts",
     "scripts": {
-        "test": "jest",
+        "test": "jest --coverage",
         "build": "rm -rf dist/* && tsc"
     },
     "repository": {

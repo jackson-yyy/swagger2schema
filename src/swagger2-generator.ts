@@ -32,11 +32,11 @@ export class Swagger2Generator extends CommonGenerator{
       post: 'body',
       get: 'query',
       delete: 'path',
-      put: 'path',
+      put: 'body',
       patch: 'path',
     }
 
-    if(method === 'get') {
+    if (method === 'get') {
       let querySchema: Required<Pick<Schema, 'type' | 'properties' | 'required'>> = {
         type: 'object',
         properties: {},
@@ -55,7 +55,7 @@ export class Swagger2Generator extends CommonGenerator{
       return this.schemaTransfer(querySchema)
     }
 
-    if(method === 'post') {
+    if (['post', 'put'].includes(method)) {
       let param = params.find(param => param.in === methodInMap[method])
       return param?.schema ? this.schemaTransfer(param.schema) : undefined
     }
