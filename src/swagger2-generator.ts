@@ -1,6 +1,6 @@
-import { CommonGenerator, GenerateResult, RequestMethod } from "./common";
-import Swagger2 from "../types/swagger2";
-import { SchemaWithoutReference, Schema } from "../types/schema";
+import { CommonGenerator, GenerateResult, RequestMethod } from "./common"
+import Swagger2 from "../types/swagger2"
+import { SchemaWithoutReference, Schema } from "../types/schema"
 
 export class Swagger2Generator extends CommonGenerator{
 

@@ -24,7 +24,7 @@ if (program.versions) {
 }
 
 function publish() {
-  shelljs.sed('-i', '"name": "swagger2schema"', '"name": "swagger2schema"', targetFile); // 修改包名
+  shelljs.sed('-i', '"name": "swagger2schema"', '"name": "@oops-tools/swagger2schema"', targetFile); // 修改包名
   shelljs.sed('-i', `"version": "${currentVersion}"`, `"version": "${newVersion}"`, targetFile); // 修改版本号
   shelljs.cd('dist');
   shelljs.exec('yarn publish --access public'); // 发布
