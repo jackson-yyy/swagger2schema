@@ -8,7 +8,11 @@ export interface Schema {
   properties?: Record<string, Schema>
   items?: Schema
   $ref?: string
-  required?: string[];
+  required?: string[]
+  anyOf?: Schema[]
+  oneOf?: Schema[]
+  allOf?: Schema[]
+  not?: Schema
 }
 
 export interface SchemaWithoutReference extends Omit<Schema, '$ref'> {

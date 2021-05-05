@@ -986,8 +986,31 @@ export function getSwagger(): any {
         ],
         "properties": {
           "id": {
-            "type": "integer",
-            "format": "int64"
+            "oneOf": [
+              {
+                "type": "string",
+                allOf: [
+                  {
+                    maxLength: 5
+                  }, {
+                    minLength: 2
+                  }
+                ]
+              }, 
+              {
+                type: "number",
+                anyOf: [
+                  {
+                    multipleOf: 5
+                  }, {
+                    multipleOf: 2
+                  }
+                ],
+                not: {
+                  multipleOf: 3
+                }
+              }
+            ]
           },
           "category": {
             "$ref": "#/definitions/Category"

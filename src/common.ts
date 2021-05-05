@@ -23,12 +23,28 @@ export class CommonGenerator {
   }
 
   schemaTransfer (schema: Schema): SchemaWithoutReference {
+
+    // 有ref直接去definition拿
     if (schema.$ref) {
       return this.getDefinition(schema.$ref) || {}
     }
+
+    // 处理oneOf, allOf, anyOf， not
+    (['oneOf', 'allOf', 'anyOf'] as const).forEach(key => {
+      if (schema[key]) {
+        schema[key] = schema[key]!.map(schema => this.schemaTransfer(schema))
+      }
+    })
+    if (schema.not) {
+      schema.not = this.schemaTransfer(schema.not)
+    }
+    
+    // array类型
     if (schema.type === 'array' && schema.items) {
       schema.items = this.schemaTransfer(schema.items)
     }
+
+    // object类型
     if(schema.type === 'object' && schema.properties) {
       let properties = schema.properties
       Object.keys(properties).forEach(propKey => {
