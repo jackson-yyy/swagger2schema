@@ -18,7 +18,7 @@ export class CommonGenerator {
 
   requestMethods: RequestMethod[] = ['get', 'post', 'put', 'patch', 'delete']
 
-  getDefinition (ref: string): SchemaWithoutReference | null {
+  getDefinition (_ref: string): SchemaWithoutReference | null {
     return null
   }
 
@@ -38,7 +38,7 @@ export class CommonGenerator {
     if (schema.not) {
       schema.not = this.schemaTransfer(schema.not)
     }
-    
+
     // array类型
     if (schema.type === 'array' && schema.items) {
       schema.items = this.schemaTransfer(schema.items)
@@ -46,7 +46,7 @@ export class CommonGenerator {
 
     // object类型
     if(schema.type === 'object' && schema.properties) {
-      let properties = schema.properties
+      const properties = schema.properties
       Object.keys(properties).forEach(propKey => {
         properties[propKey] = this.schemaTransfer(properties[propKey])
       })
@@ -54,11 +54,11 @@ export class CommonGenerator {
     return schema
   }
 
-  filterPath (path: string) {
+  filterPath (_path: string): boolean {
     return true
   }
 
-  generate (swagger: Swagger): GenerateResult[] {
+  generate (_swagger: Swagger): GenerateResult[] {
     return []
   }
 }
