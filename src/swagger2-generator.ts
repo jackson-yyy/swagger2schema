@@ -6,7 +6,7 @@ export class Swagger2Generator extends CommonGenerator{
 
   swagger: Swagger2.Swagger = {
     paths: {},
-    definitions: {}
+    definitions: {},
   }
   paths: Record<string, Swagger2.SwaggerPath> = {}
   definitions: Record<string, Swagger2.SwaggerDefinition> = {}
@@ -18,9 +18,9 @@ export class Swagger2Generator extends CommonGenerator{
     this.definitions = swagger.definitions || {}
   }
 
-  getDefinition (ref: string) {
+  getDefinition (ref: string): SchemaWithoutReference | null {
     if (ref.match(/#\/definitions\/(.*)/)) {
-      let def = this.definitions?.[RegExp.$1]
+      const def = this.definitions?.[RegExp.$1]
       return def ? this.schemaTransfer(def) : {}
     }
     return null
@@ -28,7 +28,7 @@ export class Swagger2Generator extends CommonGenerator{
 
   // TODO: support restful api
   parametersTransfer (params: Swagger2.SwaggerParameter[], method: RequestMethod): SchemaWithoutReference | undefined {
-    let methodInMap = {
+    const methodInMap = {
       post: 'body',
       get: 'query',
       delete: 'path',
@@ -37,10 +37,10 @@ export class Swagger2Generator extends CommonGenerator{
     }
 
     if (method === 'get') {
-      let querySchema: Required<Pick<Schema, 'type' | 'properties' | 'required'>> = {
+      const querySchema: Required<Pick<Schema, 'type' | 'properties' | 'required'>> = {
         type: 'object',
         properties: {},
-        required: []
+        required: [],
       }
       params.filter(param => param.in === 'query').forEach(param => {
         querySchema.properties[param.name] = {
@@ -48,7 +48,7 @@ export class Swagger2Generator extends CommonGenerator{
           description: param.description,
           items: param.items,
           enum: param.enum,
-          $ref: param.$ref
+          $ref: param.$ref,
         }
         param.required && querySchema.required.push(param.name)
       })
@@ -56,7 +56,7 @@ export class Swagger2Generator extends CommonGenerator{
     }
 
     if (['post', 'put'].includes(method)) {
-      let param = params.find(param => param.in === methodInMap[method])
+      const param = params.find(param => param.in === methodInMap[method])
       return param?.schema ? this.schemaTransfer(param.schema) : undefined
     }
 
@@ -66,17 +66,17 @@ export class Swagger2Generator extends CommonGenerator{
     return successResponse.schema ? this.schemaTransfer(successResponse.schema) : undefined
   }
 
-  generate () {
-    let res: GenerateResult[] = []
+  generate (): GenerateResult[] {
+    const res: GenerateResult[] = []
 
     Object.entries(this.paths)
       .filter(([path]) => this.filterPath(path))
       .forEach(([path, pathInfo]) => {
         this.requestMethods.filter(method => pathInfo[method])
           .forEach(method => {
-            let pathOperation = pathInfo[method]!
-            let parameters = pathOperation.parameters
-            let successResponse = pathOperation.responses?.['200']
+            const pathOperation = pathInfo[method]!
+            const parameters = pathOperation.parameters
+            const successResponse = pathOperation.responses?.['200']
 
             res.push({
               path,
@@ -84,11 +84,11 @@ export class Swagger2Generator extends CommonGenerator{
               method,
               operationId: pathInfo[method]!.operationId,
               requestSchema: parameters ? this.parametersTransfer(parameters, method) : undefined,
-              responseSchema: successResponse ? this.responseTransfer(successResponse) : undefined
+              responseSchema: successResponse ? this.responseTransfer(successResponse) : undefined,
             })
-        })
+          })
       })
-    
+
     return res
   }
 }

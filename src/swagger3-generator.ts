@@ -5,7 +5,7 @@ import { Schema, SchemaWithoutReference } from "../types/schema"
 export class Swagger3Generator extends CommonGenerator{
   swagger: Swagger3.Swagger = {
     paths: {},
-    components: {}
+    components: {},
   }
   paths: Record<string, Swagger3.SwaggerPath> = {}
   components: Swagger3.SwaggerComponents = {}
@@ -17,10 +17,10 @@ export class Swagger3Generator extends CommonGenerator{
     this.components = swagger.components || {}
   }
 
-  getDefinition (ref: string) {
+  getDefinition (ref: string): SchemaWithoutReference | null {
     if (ref.match(/#\/components\/(.*)\/(.*)/)) {
-      let defType = RegExp.$1 as keyof Swagger3.SwaggerComponents
-      let def = this.components?.[defType]?.[RegExp.$2]
+      const defType = RegExp.$1 as keyof Swagger3.SwaggerComponents
+      const def = this.components?.[defType]?.[RegExp.$2]
       return def ? this.schemaTransfer(def) : {}
     }
     return null
@@ -28,23 +28,23 @@ export class Swagger3Generator extends CommonGenerator{
 
   parametersTransfer (params: Swagger3.SwaggerParameter[]): SchemaWithoutReference | undefined {
 
-      let querySchema: Required<Pick<Schema, 'type' | 'properties' | 'required'>> = {
-        type: 'object',
-        properties: {},
-        required: []
+    const querySchema: Required<Pick<Schema, 'type' | 'properties' | 'required'>> = {
+      type: 'object',
+      properties: {},
+      required: [],
+    }
+    params.filter(param => param.in === 'query' && param.schema).forEach(param => {
+      querySchema.properties[param.name] = {
+        ...param.schema!,
+        description: param.description,
       }
-      params.filter(param => param.in === 'query' && param.schema).forEach(param => {
-        querySchema.properties[param.name] = {
-          ...param.schema!,
-          description: param.description
-        }
-        param.required && querySchema.required.push(param.name)
-      })
-      return this.schemaTransfer(querySchema)
+      param.required && querySchema.required.push(param.name)
+    })
+    return this.schemaTransfer(querySchema)
   }
 
   requestBodyTransfer (requestBody: Swagger3.SwaggerRequestBody): SchemaWithoutReference | undefined {
-    let schema = requestBody.content?.['application/json']?.schema
+    const schema = requestBody.content?.['application/json']?.schema
     return schema ? this.schemaTransfer(schema) : undefined
   }
 
@@ -53,15 +53,15 @@ export class Swagger3Generator extends CommonGenerator{
   }
 
   generate (): GenerateResult[] {
-    let res: GenerateResult[] = []
+    const res: GenerateResult[] = []
 
     Object.entries(this.paths)
       .filter(([path]) => this.filterPath(path))
       .forEach(([path, pathInfo]) => {
         this.requestMethods.filter(method => pathInfo[method])
           .forEach(method => {
-            let pathOperation = pathInfo[method]!
-            let successResponse = pathOperation.responses?.['200']?.content['application/json']
+            const pathOperation = pathInfo[method]!
+            const successResponse = pathOperation.responses?.['200']?.content['application/json']
 
             let requestSchema: Schema | undefined = undefined
 
@@ -79,9 +79,9 @@ export class Swagger3Generator extends CommonGenerator{
               method,
               operationId: pathInfo[method]!.operationId,
               requestSchema,
-              responseSchema: successResponse ? this.responseTransfer(successResponse) : undefined
+              responseSchema: successResponse ? this.responseTransfer(successResponse) : undefined,
             })
-        })
+          })
       })
     return res
   }
