@@ -3,6 +3,7 @@
     "commitMessage": "chore: release v${version}"
   },
   "github": {
-    "release": true
+    "release": true,
+    "github.tokenRef": "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"
   }
 }
