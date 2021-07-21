@@ -33,6 +33,7 @@
     "@babel/preset-typescript": "^7.13.0",
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
+    "@release-it/conventional-changelog": "^3.0.1",
     "@types/jest": "^26.0.22",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
