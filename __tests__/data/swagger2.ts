@@ -7,12 +7,12 @@ export function getSwagger(): any {
       "title": "Swagger Petstore",
       "termsOfService": "http://swagger.io/terms/",
       "contact": {
-        "email": "apiteam@swagger.io"
+        "email": "apiteam@swagger.io",
       },
       "license": {
         "name": "Apache 2.0",
-        "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-      }
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.html",
+      },
     },
     "host": "petstore.swagger.io",
     "basePath": "/v2",
@@ -22,42 +22,42 @@ export function getSwagger(): any {
         "description": "Everything about your Pets",
         "externalDocs": {
           "description": "Find out more",
-          "url": "http://swagger.io"
-        }
+          "url": "http://swagger.io",
+        },
       },
       {
         "name": "store",
-        "description": "Access to Petstore orders"
+        "description": "Access to Petstore orders",
       },
       {
         "name": "user",
         "description": "Operations about user",
         "externalDocs": {
           "description": "Find out more about our store",
-          "url": "http://swagger.io"
-        }
-      }
+          "url": "http://swagger.io",
+        },
+      },
     ],
     "schemes": [
       "https",
-      "http"
+      "http",
     ],
     "paths": {
       "/pet": {
         "post": {
           "tags": [
-            "pet"
+            "pet",
           ],
           "summary": "Add a new pet to the store",
           "description": "",
           "operationId": "addPet",
           "consumes": [
             "application/json",
-            "application/xml"
+            "application/xml",
           ],
           "produces": [
             "application/xml",
-            "application/json"
+            "application/json",
           ],
           "parameters": [
             {
@@ -66,9 +66,9 @@ export function getSwagger(): any {
               "description": "Pet object that needs to be added to the store",
               "required": true,
               "schema": {
-                "$ref": "#/definitions/Pet"
-              }
-            }
+                "$ref": "#/definitions/Pet",
+              },
+            },
           ],
           "responses": {
             "200": {
@@ -76,37 +76,37 @@ export function getSwagger(): any {
               "schema": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/definitions/Pet"
-                }
-              }
+                  "$ref": "#/definitions/Pet",
+                },
+              },
             },
             "405": {
-              "description": "Invalid input"
-            }
+              "description": "Invalid input",
+            },
           },
           "security": [
             {
               "petstore_auth": [
                 "write:pets",
-                "read:pets"
-              ]
-            }
-          ]
+                "read:pets",
+              ],
+            },
+          ],
         },
         "put": {
           "tags": [
-            "pet"
+            "pet",
           ],
           "summary": "Update an existing pet",
           "description": "",
           "operationId": "updatePet",
           "consumes": [
             "application/json",
-            "application/xml"
+            "application/xml",
           ],
           "produces": [
             "application/xml",
-            "application/json"
+            "application/json",
           ],
           "parameters": [
             {
@@ -115,42 +115,42 @@ export function getSwagger(): any {
               "description": "Pet object that needs to be added to the store",
               "required": true,
               "schema": {
-                "$ref": "#/definitions/Pet"
-              }
-            }
+                "$ref": "#/definitions/Pet",
+              },
+            },
           ],
           "responses": {
             "400": {
-              "description": "Invalid ID supplied"
+              "description": "Invalid ID supplied",
             },
             "404": {
-              "description": "Pet not found"
+              "description": "Pet not found",
             },
             "405": {
-              "description": "Validation exception"
-            }
+              "description": "Validation exception",
+            },
           },
           "security": [
             {
               "petstore_auth": [
                 "write:pets",
-                "read:pets"
-              ]
-            }
-          ]
-        }
+                "read:pets",
+              ],
+            },
+          ],
+        },
       },
       "/pet/findByStatus": {
         "get": {
           "tags": [
-            "pet"
+            "pet",
           ],
           "summary": "Finds Pets by status",
           "description": "Multiple status values can be provided with comma separated strings",
           "operationId": "findPetsByStatus",
           "produces": [
             "application/xml",
-            "application/json"
+            "application/json",
           ],
           "parameters": [
             {
@@ -164,19 +164,19 @@ export function getSwagger(): any {
                 "enum": [
                   "available",
                   "pending",
-                  "sold"
+                  "sold",
                 ],
-                "default": "available"
+                "default": "available",
               },
-              "collectionFormat": "multi"
+              "collectionFormat": "multi",
             },
             {
               "name": "name",
               "in": "query",
               "required": false,
               "type": "string",
-              "collectionFormat": "multi"
-            }
+              "collectionFormat": "multi",
+            },
           ],
           "responses": {
             "200": {
@@ -184,35 +184,35 @@ export function getSwagger(): any {
               "schema": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/definitions/Pet"
-                }
-              }
+                  "$ref": "#/definitions/Pet",
+                },
+              },
             },
             "400": {
-              "description": "Invalid status value"
-            }
+              "description": "Invalid status value",
+            },
           },
           "security": [
             {
               "petstore_auth": [
                 "write:pets",
-                "read:pets"
-              ]
-            }
-          ]
-        }
+                "read:pets",
+              ],
+            },
+          ],
+        },
       },
       "/pet/findByTags": {
         "get": {
           "tags": [
-            "pet"
+            "pet",
           ],
           "summary": "Finds Pets by tags",
           "description": "Muliple tags can be provided with comma separated strings. Use         tag1, tag2, tag3 for testing.",
           "operationId": "findPetsByTags",
           "produces": [
             "application/xml",
-            "application/json"
+            "application/json",
           ],
           "parameters": [
             {
@@ -222,10 +222,10 @@ export function getSwagger(): any {
               "required": true,
               "type": "array",
               "items": {
-                "type": "string"
+                "type": "string",
               },
-              "collectionFormat": "multi"
-            }
+              "collectionFormat": "multi",
+            },
           ],
           "responses": {
             "200": {
@@ -233,36 +233,36 @@ export function getSwagger(): any {
               "schema": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/definitions/Pet"
-                }
-              }
+                  "$ref": "#/definitions/Pet",
+                },
+              },
             },
             "400": {
-              "description": "Invalid tag value"
-            }
+              "description": "Invalid tag value",
+            },
           },
           "security": [
             {
               "petstore_auth": [
                 "write:pets",
-                "read:pets"
-              ]
-            }
+                "read:pets",
+              ],
+            },
           ],
-          "deprecated": true
-        }
+          "deprecated": true,
+        },
       },
       "/pet/{petId}": {
         "get": {
           "tags": [
-            "pet"
+            "pet",
           ],
           "summary": "Find pet by ID",
           "description": "Returns a single pet",
           "operationId": "getPetById",
           "produces": [
             "application/xml",
-            "application/json"
+            "application/json",
           ],
           "parameters": [
             {
@@ -271,42 +271,42 @@ export function getSwagger(): any {
               "description": "ID of pet to return",
               "required": true,
               "type": "integer",
-              "format": "int64"
-            }
+              "format": "int64",
+            },
           ],
           "responses": {
             "200": {
               "description": "successful operation",
               "schema": {
-                "$ref": "#/definitions/Pet"
-              }
+                "$ref": "#/definitions/Pet",
+              },
             },
             "400": {
-              "description": "Invalid ID supplied"
+              "description": "Invalid ID supplied",
             },
             "404": {
-              "description": "Pet not found"
-            }
+              "description": "Pet not found",
+            },
           },
           "security": [
             {
-              "api_key": []
-            }
-          ]
+              "api_key": [],
+            },
+          ],
         },
         "post": {
           "tags": [
-            "pet"
+            "pet",
           ],
           "summary": "Updates a pet in the store with form data",
           "description": "",
           "operationId": "updatePetWithForm",
           "consumes": [
-            "application/x-www-form-urlencoded"
+            "application/x-www-form-urlencoded",
           ],
           "produces": [
             "application/xml",
-            "application/json"
+            "application/json",
           ],
           "parameters": [
             {
@@ -315,54 +315,54 @@ export function getSwagger(): any {
               "description": "ID of pet that needs to be updated",
               "required": true,
               "type": "integer",
-              "format": "int64"
+              "format": "int64",
             },
             {
               "name": "name",
               "in": "formData",
               "description": "Updated name of the pet",
               "required": false,
-              "type": "string"
+              "type": "string",
             },
             {
               "name": "status",
               "in": "formData",
               "description": "Updated status of the pet",
               "required": false,
-              "type": "string"
-            }
+              "type": "string",
+            },
           ],
           "responses": {
             "405": {
-              "description": "Invalid input"
-            }
+              "description": "Invalid input",
+            },
           },
           "security": [
             {
               "petstore_auth": [
                 "write:pets",
-                "read:pets"
-              ]
-            }
-          ]
+                "read:pets",
+              ],
+            },
+          ],
         },
         "delete": {
           "tags": [
-            "pet"
+            "pet",
           ],
           "summary": "Deletes a pet",
           "description": "",
           "operationId": "deletePet",
           "produces": [
             "application/xml",
-            "application/json"
+            "application/json",
           ],
           "parameters": [
             {
               "name": "api_key",
               "in": "header",
               "required": false,
-              "type": "string"
+              "type": "string",
             },
             {
               "name": "petId",
@@ -370,40 +370,40 @@ export function getSwagger(): any {
               "description": "Pet id to delete",
               "required": true,
               "type": "integer",
-              "format": "int64"
-            }
+              "format": "int64",
+            },
           ],
           "responses": {
             "400": {
-              "description": "Invalid ID supplied"
+              "description": "Invalid ID supplied",
             },
             "404": {
-              "description": "Pet not found"
-            }
+              "description": "Pet not found",
+            },
           },
           "security": [
             {
               "petstore_auth": [
                 "write:pets",
-                "read:pets"
-              ]
-            }
-          ]
-        }
+                "read:pets",
+              ],
+            },
+          ],
+        },
       },
       "/pet/{petId}/uploadImage": {
         "post": {
           "tags": [
-            "pet"
+            "pet",
           ],
           "summary": "uploads an image",
           "description": "",
           "operationId": "uploadFile",
           "consumes": [
-            "multipart/form-data"
+            "multipart/form-data",
           ],
           "produces": [
-            "application/json"
+            "application/json",
           ],
           "parameters": [
             {
@@ -412,51 +412,51 @@ export function getSwagger(): any {
               "description": "ID of pet to update",
               "required": true,
               "type": "integer",
-              "format": "int64"
+              "format": "int64",
             },
             {
               "name": "additionalMetadata",
               "in": "formData",
               "description": "Additional data to pass to server",
               "required": false,
-              "type": "string"
+              "type": "string",
             },
             {
               "name": "file",
               "in": "formData",
               "description": "file to upload",
               "required": false,
-              "type": "file"
-            }
+              "type": "file",
+            },
           ],
           "responses": {
             "200": {
               "description": "successful operation",
               "schema": {
-                "$ref": "#/definitions/ApiResponse"
-              }
-            }
+                "$ref": "#/definitions/ApiResponse",
+              },
+            },
           },
           "security": [
             {
               "petstore_auth": [
                 "write:pets",
-                "read:pets"
-              ]
-            }
-          ]
-        }
+                "read:pets",
+              ],
+            },
+          ],
+        },
       },
       "/store/inventory": {
         "get": {
           "tags": [
-            "store"
+            "store",
           ],
           "summary": "Returns pet inventories by status",
           "description": "Returns a map of status codes to quantities",
           "operationId": "getInventory",
           "produces": [
-            "application/json"
+            "application/json",
           ],
           "parameters": [],
           "responses": {
@@ -466,29 +466,29 @@ export function getSwagger(): any {
                 "type": "object",
                 "additionalProperties": {
                   "type": "integer",
-                  "format": "int32"
-                }
-              }
-            }
+                  "format": "int32",
+                },
+              },
+            },
           },
           "security": [
             {
-              "api_key": []
-            }
-          ]
-        }
+              "api_key": [],
+            },
+          ],
+        },
       },
       "/store/order": {
         "post": {
           "tags": [
-            "store"
+            "store",
           ],
           "summary": "Place an order for a pet",
           "description": "",
           "operationId": "placeOrder",
           "produces": [
             "application/xml",
-            "application/json"
+            "application/json",
           ],
           "parameters": [
             {
@@ -497,34 +497,34 @@ export function getSwagger(): any {
               "description": "order placed for purchasing the pet",
               "required": true,
               "schema": {
-                "$ref": "#/definitions/Order"
-              }
-            }
+                "$ref": "#/definitions/Order",
+              },
+            },
           ],
           "responses": {
             "200": {
               "description": "successful operation",
               "schema": {
-                "$ref": "#/definitions/Order"
-              }
+                "$ref": "#/definitions/Order",
+              },
             },
             "400": {
-              "description": "Invalid Order"
-            }
-          }
-        }
+              "description": "Invalid Order",
+            },
+          },
+        },
       },
       "/store/order/{orderId}": {
         "get": {
           "tags": [
-            "store"
+            "store",
           ],
           "summary": "Find purchase order by ID",
           "description": "For valid response try integer IDs with value >= 1 and <= 10.         Other values will generated exceptions",
           "operationId": "getOrderById",
           "produces": [
             "application/xml",
-            "application/json"
+            "application/json",
           ],
           "parameters": [
             {
@@ -535,34 +535,34 @@ export function getSwagger(): any {
               "type": "integer",
               "maximum": 10,
               "minimum": 1,
-              "format": "int64"
-            }
+              "format": "int64",
+            },
           ],
           "responses": {
             "200": {
               "description": "successful operation",
               "schema": {
-                "$ref": "#/definitions/Order"
-              }
+                "$ref": "#/definitions/Order",
+              },
             },
             "400": {
-              "description": "Invalid ID supplied"
+              "description": "Invalid ID supplied",
             },
             "404": {
-              "description": "Order not found"
-            }
-          }
+              "description": "Order not found",
+            },
+          },
         },
         "delete": {
           "tags": [
-            "store"
+            "store",
           ],
           "summary": "Delete purchase order by ID",
           "description": "For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors",
           "operationId": "deleteOrder",
           "produces": [
             "application/xml",
-            "application/json"
+            "application/json",
           ],
           "parameters": [
             {
@@ -572,30 +572,30 @@ export function getSwagger(): any {
               "required": true,
               "type": "integer",
               "minimum": 1,
-              "format": "int64"
-            }
+              "format": "int64",
+            },
           ],
           "responses": {
             "400": {
-              "description": "Invalid ID supplied"
+              "description": "Invalid ID supplied",
             },
             "404": {
-              "description": "Order not found"
-            }
-          }
-        }
+              "description": "Order not found",
+            },
+          },
+        },
       },
       "/user": {
         "post": {
           "tags": [
-            "user"
+            "user",
           ],
           "summary": "Create user",
           "description": "This can only be done by the logged in user.",
           "operationId": "createUser",
           "produces": [
             "application/xml",
-            "application/json"
+            "application/json",
           ],
           "parameters": [
             {
@@ -604,28 +604,28 @@ export function getSwagger(): any {
               "description": "Created user object",
               "required": true,
               "schema": {
-                "$ref": "#/definitions/User"
-              }
-            }
+                "$ref": "#/definitions/User",
+              },
+            },
           ],
           "responses": {
             "default": {
-              "description": "successful operation"
-            }
-          }
-        }
+              "description": "successful operation",
+            },
+          },
+        },
       },
       "/user/createWithArray": {
         "post": {
           "tags": [
-            "user"
+            "user",
           ],
           "summary": "Creates list of users with given input array",
           "description": "",
           "operationId": "createUsersWithArrayInput",
           "produces": [
             "application/xml",
-            "application/json"
+            "application/json",
           ],
           "parameters": [
             {
@@ -636,29 +636,29 @@ export function getSwagger(): any {
               "schema": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/definitions/User"
-                }
-              }
-            }
+                  "$ref": "#/definitions/User",
+                },
+              },
+            },
           ],
           "responses": {
             "default": {
-              "description": "successful operation"
-            }
-          }
-        }
+              "description": "successful operation",
+            },
+          },
+        },
       },
       "/user/createWithList": {
         "post": {
           "tags": [
-            "user"
+            "user",
           ],
           "summary": "Creates list of users with given input array",
           "description": "",
           "operationId": "createUsersWithListInput",
           "produces": [
             "application/xml",
-            "application/json"
+            "application/json",
           ],
           "parameters": [
             {
@@ -669,29 +669,29 @@ export function getSwagger(): any {
               "schema": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/definitions/User"
-                }
-              }
-            }
+                  "$ref": "#/definitions/User",
+                },
+              },
+            },
           ],
           "responses": {
             "default": {
-              "description": "successful operation"
-            }
-          }
-        }
+              "description": "successful operation",
+            },
+          },
+        },
       },
       "/user/login": {
         "get": {
           "tags": [
-            "user"
+            "user",
           ],
           "summary": "Logs user into the system",
           "description": "",
           "operationId": "loginUser",
           "produces": [
             "application/xml",
-            "application/json"
+            "application/json",
           ],
           "parameters": [
             {
@@ -699,72 +699,72 @@ export function getSwagger(): any {
               "in": "query",
               "description": "The user name for login",
               "required": true,
-              "type": "string"
+              "type": "string",
             },
             {
               "name": "password",
               "in": "query",
               "description": "The password for login in clear text",
               "required": true,
-              "type": "string"
-            }
+              "type": "string",
+            },
           ],
           "responses": {
             "200": {
               "description": "successful operation",
               "schema": {
-                "type": "string"
+                "type": "string",
               },
               "headers": {
                 "X-Rate-Limit": {
                   "type": "integer",
                   "format": "int32",
-                  "description": "calls per hour allowed by the user"
+                  "description": "calls per hour allowed by the user",
                 },
                 "X-Expires-After": {
                   "type": "string",
                   "format": "date-time",
-                  "description": "date in UTC when token expires"
-                }
-              }
+                  "description": "date in UTC when token expires",
+                },
+              },
             },
             "400": {
-              "description": "Invalid username/password supplied"
-            }
-          }
-        }
+              "description": "Invalid username/password supplied",
+            },
+          },
+        },
       },
       "/user/logout": {
         "get": {
           "tags": [
-            "user"
+            "user",
           ],
           "summary": "Logs out current logged in user session",
           "description": "",
           "operationId": "logoutUser",
           "produces": [
             "application/xml",
-            "application/json"
+            "application/json",
           ],
           "parameters": [],
           "responses": {
             "default": {
-              "description": "successful operation"
-            }
-          }
-        }
+              "description": "successful operation",
+            },
+          },
+        },
       },
       "/user/{username}": {
         "get": {
           "tags": [
-            "user"
+            "user",
           ],
           "summary": "Get user by user name",
           "description": "",
           "operationId": "getUserByName",
           "produces": [
             "application/xml",
-            "application/json"
+            "application/json",
           ],
           "parameters": [
             {
@@ -772,34 +772,34 @@ export function getSwagger(): any {
               "in": "path",
               "description": "The name that needs to be fetched. Use user1 for testing. ",
               "required": true,
-              "type": "string"
-            }
+              "type": "string",
+            },
           ],
           "responses": {
             "200": {
               "description": "successful operation",
               "schema": {
-                "$ref": "#/definitions/User"
-              }
+                "$ref": "#/definitions/User",
+              },
             },
             "400": {
-              "description": "Invalid username supplied"
+              "description": "Invalid username supplied",
             },
             "404": {
-              "description": "User not found"
-            }
-          }
+              "description": "User not found",
+            },
+          },
         },
         "put": {
           "tags": [
-            "user"
+            "user",
           ],
           "summary": "Updated user",
           "description": "This can only be done by the logged in user.",
           "operationId": "updateUser",
           "produces": [
             "application/xml",
-            "application/json"
+            "application/json",
           ],
           "parameters": [
             {
@@ -807,7 +807,7 @@ export function getSwagger(): any {
               "in": "path",
               "description": "name that need to be updated",
               "required": true,
-              "type": "string"
+              "type": "string",
             },
             {
               "in": "body",
@@ -815,29 +815,29 @@ export function getSwagger(): any {
               "description": "Updated user object",
               "required": true,
               "schema": {
-                "$ref": "#/definitions/User"
-              }
-            }
+                "$ref": "#/definitions/User",
+              },
+            },
           ],
           "responses": {
             "400": {
-              "description": "Invalid user supplied"
+              "description": "Invalid user supplied",
             },
             "404": {
-              "description": "User not found"
-            }
-          }
+              "description": "User not found",
+            },
+          },
         },
         "delete": {
           "tags": [
-            "user"
+            "user",
           ],
           "summary": "Delete user",
           "description": "This can only be done by the logged in user.",
           "operationId": "deleteUser",
           "produces": [
             "application/xml",
-            "application/json"
+            "application/json",
           ],
           "parameters": [
             {
@@ -845,19 +845,19 @@ export function getSwagger(): any {
               "in": "path",
               "description": "The name that needs to be deleted",
               "required": true,
-              "type": "string"
-            }
+              "type": "string",
+            },
           ],
           "responses": {
             "400": {
-              "description": "Invalid username supplied"
+              "description": "Invalid username supplied",
             },
             "404": {
-              "description": "User not found"
-            }
-          }
-        }
-      }
+              "description": "User not found",
+            },
+          },
+        },
+      },
     },
     "securityDefinitions": {
       "petstore_auth": {
@@ -866,14 +866,14 @@ export function getSwagger(): any {
         "flow": "implicit",
         "scopes": {
           "write:pets": "modify pets in your account",
-          "read:pets": "read your pets"
-        }
+          "read:pets": "read your pets",
+        },
       },
       "api_key": {
         "type": "apiKey",
         "name": "api_key",
-        "in": "header"
-      }
+        "in": "header",
+      },
     },
     "definitions": {
       "Order": {
@@ -881,19 +881,19 @@ export function getSwagger(): any {
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
           },
           "petId": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
           },
           "quantity": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
           },
           "shipDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
           },
           "status": {
             "type": "string",
@@ -901,88 +901,88 @@ export function getSwagger(): any {
             "enum": [
               "placed",
               "approved",
-              "delivered"
-            ]
+              "delivered",
+            ],
           },
           "complete": {
             "type": "boolean",
-            "default": false
-          }
+            "default": false,
+          },
         },
         "xml": {
-          "name": "Order"
-        }
+          "name": "Order",
+        },
       },
       "Category": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
           },
           "name": {
-            "type": "string"
-          }
+            "type": "string",
+          },
         },
         "xml": {
-          "name": "Category"
-        }
+          "name": "Category",
+        },
       },
       "User": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
           },
           "username": {
-            "type": "string"
+            "type": "string",
           },
           "firstName": {
-            "type": "string"
+            "type": "string",
           },
           "lastName": {
-            "type": "string"
+            "type": "string",
           },
           "email": {
-            "type": "string"
+            "type": "string",
           },
           "password": {
-            "type": "string"
+            "type": "string",
           },
           "phone": {
-            "type": "string"
+            "type": "string",
           },
           "userStatus": {
             "type": "integer",
             "format": "int32",
-            "description": "User Status"
-          }
+            "description": "User Status",
+          },
         },
         "xml": {
-          "name": "User"
-        }
+          "name": "User",
+        },
       },
       "Tag": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
           },
           "name": {
-            "type": "string"
-          }
+            "type": "string",
+          },
         },
         "xml": {
-          "name": "Tag"
-        }
+          "name": "Tag",
+        },
       },
       "Pet": {
         "type": "object",
         "required": [
           "name",
-          "photoUrls"
+          "photoUrls",
         ],
         "properties": {
           "id": {
@@ -991,53 +991,53 @@ export function getSwagger(): any {
                 "type": "string",
                 allOf: [
                   {
-                    maxLength: 5
+                    maxLength: 5,
                   }, {
-                    minLength: 2
-                  }
-                ]
-              }, 
+                    minLength: 2,
+                  },
+                ],
+              },
               {
                 type: "number",
                 anyOf: [
                   {
-                    multipleOf: 5
+                    multipleOf: 5,
                   }, {
-                    multipleOf: 2
-                  }
+                    multipleOf: 2,
+                  },
                 ],
                 not: {
-                  multipleOf: 3
-                }
-              }
-            ]
+                  multipleOf: 3,
+                },
+              },
+            ],
           },
           "category": {
-            "$ref": "#/definitions/Category"
+            "$ref": "#/definitions/Category",
           },
           "name": {
             "type": "string",
-            "example": "doggie"
+            "example": "doggie",
           },
           "photoUrls": {
             "type": "array",
             "xml": {
               "name": "photoUrl",
-              "wrapped": true
+              "wrapped": true,
             },
             "items": {
-              "type": "string"
-            }
+              "type": "string",
+            },
           },
           "tags": {
             "type": "array",
             "xml": {
               "name": "tag",
-              "wrapped": true
+              "wrapped": true,
             },
             "items": {
-              "$ref": "#/definitions/Tag"
-            }
+              "$ref": "#/definitions/Tag",
+            },
           },
           "status": {
             "type": "string",
@@ -1045,33 +1045,33 @@ export function getSwagger(): any {
             "enum": [
               "available",
               "pending",
-              "sold"
-            ]
-          }
+              "sold",
+            ],
+          },
         },
         "xml": {
-          "name": "Pet"
-        }
+          "name": "Pet",
+        },
       },
       "ApiResponse": {
         "type": "object",
         "properties": {
           "code": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
           },
           "type": {
-            "type": "string"
+            "type": "string",
           },
           "message": {
-            "type": "string"
-          }
-        }
-      }
+            "type": "string",
+          },
+        },
+      },
     },
     "externalDocs": {
       "description": "Find out more about Swagger",
-      "url": "http://swagger.io"
-    }
+      "url": "http://swagger.io",
+    },
   }
 }
