@@ -4,8 +4,8 @@ import { testRequest, testResponse } from './utils';
 
 describe('swagger3-generator', () => {
 
-  let generator = new Swagger2Generator(getSwagger())
-  let result = generator.generate()
+  const generator = new Swagger2Generator(getSwagger())
+  const result = generator.generate()
 
 
   testRequest(result)

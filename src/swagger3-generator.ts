@@ -61,7 +61,7 @@ export class Swagger3Generator extends CommonGenerator{
         this.requestMethods.filter(method => pathInfo[method])
           .forEach(method => {
             const pathOperation = pathInfo[method]!
-            const successResponse = pathOperation.responses?.['200']?.content['application/json']
+            const successResponse = pathOperation.responses?.['200']?.content?.['application/json']
 
             let requestSchema: Schema | undefined = undefined
 
