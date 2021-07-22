@@ -10,7 +10,7 @@
     "commit": "git-cz",
     "lint": "npx eslint src --ext .js,.ts,tsx",
     "lint-fix": "npx eslint src --ext .js,.ts,tsx --fix",
-    "release": "npx release-it"
+    "release": "npm run build && npx release-it"
   },
   "repository": {
     "type": "git",
