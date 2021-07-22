@@ -1,6 +1,6 @@
 {
   "name": "@oops-tools/swagger2schema",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "transform swagger to schema",
   "main": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",
@@ -10,7 +10,7 @@
     "commit": "git-cz",
     "lint": "npx eslint src --ext .js,.ts,tsx",
     "lint-fix": "npx eslint src --ext .js,.ts,tsx --fix",
-    "release": "npx release-it"
+    "release": "npm run build && npx release-it"
   },
   "repository": {
     "type": "git",
