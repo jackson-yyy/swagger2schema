@@ -1,6 +1,6 @@
 {
   "name": "@oops-tools/swagger2schema",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "transform swagger to schema",
   "main": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",

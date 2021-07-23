@@ -1,3 +1,10 @@
+### [1.0.4](https://github.com/jackson-yyy/swagger2schema/compare/v1.0.3...v1.0.4) (2021-07-23)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* 修复树形schema循环引用导致栈溢出的问题 ([9784a78](https://github.com/jackson-yyy/swagger2schema/commit/9784a78986f4f97603f180cbeedf5a442ecbbe97))
+
 ### [1.0.3](https://github.com/jackson-yyy/swagger2schema/compare/v1.0.2...v1.0.3) (2021-07-22)
 
 ### [1.0.2](https://github.com/jackson-yyy/swagger2schema/compare/v1.0.1...v1.0.2) (2021-07-21)
