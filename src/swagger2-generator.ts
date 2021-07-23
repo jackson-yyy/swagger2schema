@@ -1,6 +1,6 @@
 import { CommonGenerator, GenerateResult, RequestMethod } from "./common"
 import Swagger2 from "../types/swagger2"
-import { SchemaWithoutReference, Schema } from "../types/schema"
+import { Schema } from "../types/schema"
 
 export class Swagger2Generator extends CommonGenerator{
 
@@ -18,16 +18,21 @@ export class Swagger2Generator extends CommonGenerator{
     this.definitions = swagger.definitions || {}
   }
 
-  getDefinition (ref: string): SchemaWithoutReference | null {
+  getDefinition (ref: string, refPath: string[] = []): Schema | null {
     if (ref.match(/#\/definitions\/(.*)/)) {
+      if (refPath.includes(ref)) {
+        return {
+          $ref: ref,
+        }
+      }
       const def = this.definitions?.[RegExp.$1]
-      return def ? this.schemaTransfer(def) : {}
+      return def ? this.schemaTransfer(def, [...refPath, ref]) : {}
     }
     return null
   }
 
   // TODO: support restful api
-  parametersTransfer (params: Swagger2.SwaggerParameter[], method: RequestMethod): SchemaWithoutReference | undefined {
+  parametersTransfer (params: Swagger2.SwaggerParameter[], method: RequestMethod): Schema | undefined {
     const methodInMap = {
       post: 'body',
       get: 'query',
@@ -62,7 +67,7 @@ export class Swagger2Generator extends CommonGenerator{
 
   }
 
-  responseTransfer (successResponse: Swagger2.SwaggerResponse): SchemaWithoutReference | undefined {
+  responseTransfer (successResponse: Swagger2.SwaggerResponse): Schema | undefined {
     return successResponse.schema ? this.schemaTransfer(successResponse.schema) : undefined
   }
 

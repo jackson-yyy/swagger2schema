@@ -1,6 +1,6 @@
 import { CommonGenerator, GenerateResult } from "./common"
 import Swagger3 from "../types/swagger3"
-import { Schema, SchemaWithoutReference } from "../types/schema"
+import { Schema } from "../types/schema"
 
 export class Swagger3Generator extends CommonGenerator{
   swagger: Swagger3.Swagger = {
@@ -17,16 +17,21 @@ export class Swagger3Generator extends CommonGenerator{
     this.components = swagger.components || {}
   }
 
-  getDefinition (ref: string): SchemaWithoutReference | null {
+  getDefinition (ref: string, refPath: string[] = []): Schema | null {
     if (ref.match(/#\/components\/(.*)\/(.*)/)) {
+      if (refPath.includes(ref)) {
+        return {
+          $ref: `#/definitions/${RegExp.$2}`,
+        }
+      }
       const defType = RegExp.$1 as keyof Swagger3.SwaggerComponents
       const def = this.components?.[defType]?.[RegExp.$2]
-      return def ? this.schemaTransfer(def) : {}
+      return def ? this.schemaTransfer(def, [...refPath, ref]) : {}
     }
     return null
   }
 
-  parametersTransfer (params: Swagger3.SwaggerParameter[]): SchemaWithoutReference | undefined {
+  parametersTransfer (params: Swagger3.SwaggerParameter[]): Schema | undefined {
 
     const querySchema: Required<Pick<Schema, 'type' | 'properties' | 'required'>> = {
       type: 'object',
@@ -43,12 +48,12 @@ export class Swagger3Generator extends CommonGenerator{
     return this.schemaTransfer(querySchema)
   }
 
-  requestBodyTransfer (requestBody: Swagger3.SwaggerRequestBody): SchemaWithoutReference | undefined {
+  requestBodyTransfer (requestBody: Swagger3.SwaggerRequestBody): Schema | undefined {
     const schema = requestBody.content?.['application/json']?.schema
     return schema ? this.schemaTransfer(schema) : undefined
   }
 
-  responseTransfer (successResponse: Swagger3.SwaggerResponseContent): SchemaWithoutReference | undefined {
+  responseTransfer (successResponse: Swagger3.SwaggerResponseContent): Schema | undefined {
     return successResponse.schema ? this.schemaTransfer(successResponse.schema): undefined
   }
 
@@ -72,6 +77,7 @@ export class Swagger3Generator extends CommonGenerator{
             if (pathOperation.requestBody && ['post', 'put'].includes(method)) {
               requestSchema = this.requestBodyTransfer(pathOperation.requestBody)
             }
+            const responseSchema = successResponse ? this.responseTransfer(successResponse) : undefined
 
             res.push({
               path,
@@ -79,10 +85,11 @@ export class Swagger3Generator extends CommonGenerator{
               method,
               operationId: pathInfo[method]!.operationId,
               requestSchema,
-              responseSchema: successResponse ? this.responseTransfer(successResponse) : undefined,
+              responseSchema,
             })
           })
       })
+
     return res
   }
 }

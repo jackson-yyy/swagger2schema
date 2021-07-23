@@ -7,77 +7,77 @@ const PetDef = {
         "type": "string",
         allOf: [
           {
-            maxLength: 5
+            maxLength: 5,
           }, {
-            minLength: 2
-          }
-        ]
+            minLength: 2,
+          },
+        ],
       },
       {
         type: "number",
         anyOf: [
           {
-            multipleOf: 5
+            multipleOf: 5,
           }, {
-            multipleOf: 2
-          }
+            multipleOf: 2,
+          },
         ],
         not: {
-          multipleOf: 3
-        }
-      }
-    ]
+          multipleOf: 3,
+        },
+      },
+    ],
   },
   "category": {
     "type": "object",
     "properties": {
       "id": {
         "type": "integer",
-        "format": "int64"
+        "format": "int64",
       },
       "name": {
-        "type": "string"
-      }
+        "type": "string",
+      },
     },
     "xml": {
-      "name": "Category"
-    }
+      "name": "Category",
+    },
   },
   "name": {
     "type": "string",
-    "example": "doggie"
+    "example": "doggie",
   },
   "photoUrls": {
     "type": "array",
     "xml": {
       "name": "photoUrl",
-      "wrapped": true
+      "wrapped": true,
     },
     "items": {
-      "type": "string"
-    }
+      "type": "string",
+    },
   },
   "tags": {
     "type": "array",
     "xml": {
       "name": "tag",
-      "wrapped": true
+      "wrapped": true,
     },
     "items": {
       "type": "object",
       "properties": {
         "id": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
         },
         "name": {
-          "type": "string"
-        }
+          "type": "string",
+        },
       },
       "xml": {
-        "name": "Tag"
-      }
-    }
+        "name": "Tag",
+      },
+    },
   },
   "status": {
     "type": "string",
@@ -85,51 +85,51 @@ const PetDef = {
     "enum": [
       "available",
       "pending",
-      "sold"
-    ]
-  }
+      "sold",
+    ],
+  },
 } as const
 
-export function testResponse(result: GenerateResult[]) {
+export function testResponse(result: GenerateResult[]): void {
   test('response schema', () => {
-    let postRes = result.find(res => res.path === '/pet' && res.method === 'post')
+    const postRes = result.find(res => res.path === '/pet' && res.method === 'post')
     expect(postRes?.responseSchema).toEqual({
       "type": "array",
       "items": {
         "type": "object",
         "required": [
           "name",
-          "photoUrls"
+          "photoUrls",
         ],
         "properties": PetDef,
         "xml": {
-          "name": "Pet"
-        }
-      }
+          "name": "Pet",
+        },
+      },
     })
 
   })
 
 }
 
-export function testRequest(result: GenerateResult[]) {
+export function testRequest(result: GenerateResult[]): void {
   test('different request method params', () => {
 
-    let postRes = result.find(res => res.path === '/pet' && res.method === 'post')
-    let getRes = result.find(res => res.path === '/pet/findByStatus' && res.method === 'get')
-    let putRes = result.find(res => res.path === '/pet' && res.method === 'put')
+    const postRes = result.find(res => res.path === '/pet' && res.method === 'post')
+    const getRes = result.find(res => res.path === '/pet/findByStatus' && res.method === 'get')
+    const putRes = result.find(res => res.path === '/pet' && res.method === 'put')
 
     // post
     expect(postRes?.requestSchema).toEqual({
       "type": "object",
       "required": [
         "name",
-        "photoUrls"
+        "photoUrls",
       ],
       "properties": PetDef,
       "xml": {
-        "name": "Pet"
-      }
+        "name": "Pet",
+      },
     })
 
     // get
@@ -144,16 +144,16 @@ export function testRequest(result: GenerateResult[]) {
             "enum": [
               "available",
               "pending",
-              "sold"
+              "sold",
             ],
-            "default": "available"
+            "default": "available",
           },
         },
         name: {
-          type: "string"
-        }
+          type: "string",
+        },
       },
-      required: ['status']
+      required: ['status'],
     })
 
     // put
@@ -161,14 +161,66 @@ export function testRequest(result: GenerateResult[]) {
       "type": "object",
       "required": [
         "name",
-        "photoUrls"
+        "photoUrls",
       ],
       "properties": PetDef,
       "xml": {
-        "name": "Pet"
-      }
+        "name": "Pet",
+      },
     })
 
+  })
+
+}
+
+
+export function testTreeSchema (result: GenerateResult[]): void {
+  test('different request method params', () => {
+
+    const postRes = result.find(res => res.path === '/tree')
+
+    const schema = {
+      // definitions: {
+      //   Tree: {
+      //     type: 'object',
+      //     properties: {
+      //       id: {
+      //         type: 'string',
+      //       },
+      //       name: {
+      //         type: 'string',
+      //       },
+      //       children: {
+      //         type: 'array',
+      //         items: {
+      //           $ref: "#/definitions/Tree",
+      //         },
+      //       },
+      //     },
+      //   },
+      // },
+      "type": "array",
+      "items": {
+        type: 'object',
+        properties: {
+          id: {
+            type: 'string',
+          },
+          name: {
+            type: 'string',
+          },
+          children: {
+            type: 'array',
+            items: {
+              $ref: "#/definitions/Tree",
+            },
+          },
+        },
+      },
+    }
+
+    expect(postRes?.requestSchema).toEqual(schema)
+    expect(postRes?.responseSchema).toEqual(schema)
   })
 
 }

@@ -8,11 +8,11 @@ namespace Swagger2 {
   }
 
    export interface SwaggerPath {
-    get?: SwaggerPathOperation;
-    post?: SwaggerPathOperation;
-    put?: SwaggerPathOperation;
-    patch?: SwaggerPathOperation;
-    delete?: SwaggerPathOperation;
+    get?: SwaggerPathOperation
+    post?: SwaggerPathOperation
+    put?: SwaggerPathOperation
+    patch?: SwaggerPathOperation
+    delete?: SwaggerPathOperation
     // parameters?: SwaggerParameter[];
   }
 

@@ -1,4 +1,4 @@
-import { Schema, SchemaWithoutReference } from "../types/schema";
+import { Schema } from "../types/schema";
 import Swagger2 from "../types/swagger2";
 import Swagger3 from "../types/swagger3";
 
@@ -10,48 +10,53 @@ export interface GenerateResult {
     path?: string
     method?: RequestMethod
     operationId?: string
-    requestSchema?: SchemaWithoutReference
-    responseSchema?: SchemaWithoutReference
+    requestSchema?: Schema
+    responseSchema?: Schema
 }
 
 export class CommonGenerator {
 
   requestMethods: RequestMethod[] = ['get', 'post', 'put', 'patch', 'delete']
 
-  getDefinition (_ref: string): SchemaWithoutReference | null {
+  rootDefinitions: Record<string, Schema> = {}
+
+  getDefinition (_ref: string, _refPath: string[] = []): Schema | null {
     return null
   }
 
-  schemaTransfer (schema: Schema): SchemaWithoutReference {
+  schemaTransfer (schema: Schema, refPath: string[] = []): Schema {
+
+    const schemaCopy = { ...schema }
 
     // 有ref直接去definition拿
-    if (schema.$ref) {
-      return this.getDefinition(schema.$ref) || {}
+    if (schemaCopy.$ref) {
+      return this.getDefinition(schemaCopy.$ref, refPath) || {}
     }
 
     // 处理oneOf, allOf, anyOf， not
     (['oneOf', 'allOf', 'anyOf'] as const).forEach(key => {
-      if (schema[key]) {
-        schema[key] = schema[key]!.map(schema => this.schemaTransfer(schema))
+      if (schemaCopy[key]) {
+        schemaCopy[key] = schemaCopy[key]!.map(schema => this.schemaTransfer(schema, refPath))
       }
     })
-    if (schema.not) {
-      schema.not = this.schemaTransfer(schema.not)
+    if (schemaCopy.not) {
+      schemaCopy.not = this.schemaTransfer(schemaCopy.not, refPath)
     }
 
     // array类型
-    if (schema.type === 'array' && schema.items) {
-      schema.items = this.schemaTransfer(schema.items)
+    if (schemaCopy.type === 'array' && schemaCopy.items) {
+      schemaCopy.items = this.schemaTransfer(schemaCopy.items, refPath)
     }
 
     // object类型
     if(schema.type === 'object' && schema.properties) {
-      const properties = schema.properties
+      const properties = { ...schemaCopy.properties }
       Object.keys(properties).forEach(propKey => {
-        properties[propKey] = this.schemaTransfer(properties[propKey])
+        properties[propKey] = this.schemaTransfer(properties[propKey], refPath)
       })
+      schemaCopy.properties = properties
     }
-    return schema
+    return schemaCopy
   }
 
   filterPath (_path: string): boolean {

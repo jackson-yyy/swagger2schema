@@ -49,6 +49,40 @@ export function getSwagger(): any {
       },
     ],
     "paths": {
+      "/tree": {
+        post: {
+          tags: ['tree'],
+          "operationId": "getTree",
+          "requestBody": {
+            content: {
+              "application/json": {
+                "schema": {
+                  type: 'array',
+                  items: {
+                    "$ref": "#/components/schemas/Tree",
+                  },
+                },
+              },
+            },
+            "required": true,
+          },
+          responses: {
+            "200": {
+              "description": "successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Tree",
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
       "/pet": {
         "put": {
           "tags": [
@@ -940,6 +974,23 @@ export function getSwagger(): any {
     },
     "components": {
       "schemas": {
+        Tree: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+            },
+            name: {
+              type: 'string',
+            },
+            children: {
+              type: 'array',
+              items: {
+                $ref: "#/components/schemas/Tree",
+              },
+            },
+          },
+        },
         "Order": {
           "type": "object",
           "properties": {
