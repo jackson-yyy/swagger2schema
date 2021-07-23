@@ -1,6 +1,6 @@
 import { Swagger3Generator } from '../src/index';
 import { getSwagger } from './data/swagger3';
-import { testRequest, testResponse } from './utils';
+import { testRequest, testResponse, testTreeSchema } from './utils';
 
 describe('swagger3-generator', () => {
 
@@ -10,4 +10,5 @@ describe('swagger3-generator', () => {
 
   testRequest(result)
   testResponse(result)
+  testTreeSchema(result)
 })

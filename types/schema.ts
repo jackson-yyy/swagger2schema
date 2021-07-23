@@ -1,6 +1,7 @@
 export type SchemaType = 'integer' | 'string' | 'array' | 'number' | 'boolean' | 'object'
 
 export interface Schema {
+  definitions?: Record<string, Schema>
   description?: string
   enum?: string[]
   type?: SchemaType
